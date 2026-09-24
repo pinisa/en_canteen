@@ -6,350 +6,244 @@
     <title>KKU Innovation Complex ศูนย์อาหารคณะวิศวกรรมศาสตร์</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style> 
-        body { font-family: 'Kanit', sans-serif; } 
-        
-        /* CSS สำหรับจัดโครงสร้างผังที่นั่งชั้น 1 */
-        .food-court-layout {
-            display: grid;
-            grid-template-areas:
-                "left-zone food-zone right-zone"
-                "left-zone main-seat right-zone"
-                "left-zone row-e     right-zone"
-                "left-zone bottom-zone right-zone";
-            grid-template-columns: 110px 1fr 60px;
-            grid-template-rows: auto auto auto auto;
-            gap: 16px;
-            min-width: 850px;
-            background-color: #f8fafc;
-            padding: 20px;
-            border-radius: 16px;
-            border: 2px solid #e2e8f0;
-        }
-
-        /* CSS สำหรับชั้นใต้ดิน ปรับ width ให้ fit-content ป้องกันของทะลุกรอบ */
-        .lower-layout {
-            display: grid;
-            grid-template-columns: 100px auto 60px;
-            gap: 16px;
-            min-width: 860px;
-            width: fit-content;
-            margin: 0 auto;
-            background-color: #f8fafc;
-            padding: 20px;
-            border-radius: 16px;
-            border: 2px solid #e2e8f0;
-        }
-
-        .main-seat-grid {
-            grid-area: main-seat;
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            grid-template-rows: repeat(4, 65px);
-            gap: 16px;
-            padding: 16px 0 0 0;
-            justify-items: center;
-            align-items: center;
-        }
-
-        .row-e-grid {
-            grid-area: row-e;
-            display: grid;
-            grid-template-columns: repeat(9, 65px);
-            justify-content: start; 
-            gap: 12px;
-            padding: 16px 0;
-        }
-
-        /* Grid พิเศษสำหรับชั้นใต้ดิน (2-4-2 พร้อมช่องเสา) */
-        .lower-seat-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 65px) 24px repeat(4, 65px) 24px repeat(2, 65px);
-            grid-template-rows: repeat(4, 65px) 15px 45px; 
-            gap: 12px;
-            justify-items: center;
-            align-items: center;
-        }
-
-        .tbl { 
-            width: 100%; 
-            max-width: 65px; 
-            height: 48px;
-            border-radius: 6px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 14px; 
-            font-weight: bold; 
-            transition: all 0.2s;
-            cursor: pointer;
-        }
+    <style>
+        body { font-family: 'Kanit', sans-serif; }
     </style>
 </head>
-<body class="bg-slate-100 min-h-screen pb-24 md:pb-8">
+<body class="bg-slate-200 min-h-screen">
 
-    <header class="bg-red-800 text-white shadow-md sticky top-0 z-40">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+    <!-- Header Bar -->
+    <header class="bg-[#8B1518] text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-2.5 flex justify-between items-center">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-white text-red-800 rounded-xl flex items-center justify-center font-bold text-xs shadow">ENKKU</div>
+                <div class="w-9 h-9 bg-white text-[#8B1518] rounded-lg flex items-center justify-center font-bold text-xs shadow">ENKKU</div>
                 <div>
-                    <h1 class="text-lg md:text-xl font-bold leading-tight">KKU Innovation Complex</h1>
-                    <p class="text-[11px] md:text-xs text-red-200">ศูนย์อาหารคณะวิศวกรรมศาสตร์</p>
+                    <h1 class="text-base font-bold leading-tight">KKU Innovation Complex</h1>
+                    <p class="text-[10px] text-red-200">ศูนย์อาหารคณะวิศวกรรมศาสตร์</p>
                 </div>
             </div>
 
-            <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
-                <a href="index.html" class="text-white border-b-2 border-white pb-1 font-semibold flex items-center gap-1.5">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    จองโต๊ะ
-                </a>
-                <a href="booking.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5h14a2 2 0 012 2v3a2 2 0 01-2 2H5a2 2 0 000-4V7a2 2 0 012-2z"/></svg>
-                    ตั๋วของฉัน
-                </a>
-                <a href="history.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    ประวัติ
-                </a>
+            <nav class="hidden md:flex items-center gap-6 text-xs font-medium">
+                <a href="index.html" class="text-white border-b-2 border-white pb-0.5 font-semibold">จองโต๊ะ</a>
+                <a href="booking.html" class="text-red-200 hover:text-white transition">ตั๋วของฉัน</a>
+                <a href="history.html" class="text-red-200 hover:text-white transition">ประวัติ</a>
             </nav>
 
-            <div class="relative">
-                <button onclick="toggleUserDropdown(event)" class="bg-red-900/70 hover:bg-red-900 px-3 py-1.5 rounded-full text-xs flex items-center gap-2 border border-red-700/60 shadow-inner transition active:scale-95">
-                    <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
-                    <span id="user-display-name" class="font-medium">User</span>
-                    <svg class="w-3.5 h-3.5 text-red-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
-                </button>
-
-                <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 py-1.5 z-50 text-xs text-slate-700 space-y-1">
-                    <div class="px-4 py-2 border-b border-slate-100">
-                        <p class="text-[10px] text-slate-400">เข้าสู่ระบบด้วย</p>
-                        <p id="dropdown-user-email" class="font-bold text-slate-800 truncate">student@kkumail.com</p>
-                    </div>
-                    <button onclick="handleLogout()" class="w-full text-left px-4 py-2 hover:bg-rose-50 text-rose-600 flex items-center gap-2 font-medium transition">
-                        ออกจากระบบ
-                    </button>
-                </div>
-            </div>
+            <button class="bg-[#6B0F12] hover:bg-[#520B0E] px-3 py-1.5 rounded-full text-xs flex items-center gap-2 border border-red-700/50">
+                <span class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></span>
+                <span class="font-medium text-white">ประเสริฐ</span>
+            </button>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 items-start">
 
-        <!-- ฝั่งผังโต๊ะ -->
-        <div class="lg:col-span-2 space-y-5">
+        <!-- ฝั่งซ้าย: ผังโต๊ะ (3 ส่วน) -->
+        <div class="lg:col-span-3 bg-white rounded-xl p-6 shadow-sm border border-slate-200 min-h-[580px] flex flex-col justify-between">
             
-            <!-- สถานะความหนาแน่น -->
-            <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-3">
-                <div class="flex justify-between items-center text-xs font-bold">
-                    <span class="text-slate-700">ความหนาแน่นปัจจุบัน</span>
-                    <span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full border border-emerald-200">ว่าง (0%)</span>
-                </div>
-                <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden">
-                    <div class="bg-emerald-500 h-full rounded-full transition-all duration-500" style="width: 0%;"></div>
-                </div>
-                <div class="flex justify-between text-xs text-slate-500 font-medium pt-1">
-                    <span class="text-emerald-600 font-bold">ว่าง: <span id="stat-available">101</span></span>
-                    <span class="text-amber-600 font-bold">ติดจอง: <span id="stat-pending">0</span></span>
-                    <span class="text-slate-400">ใช้งาน: <span id="stat-occupied">0</span></span>
+            <!-- ปุ่มสลับชั้น -->
+            <div class="flex justify-center mb-4">
+                <div class="bg-slate-100 p-1 rounded-xl flex gap-1 text-xs font-semibold">
+                    <button onclick="switchFloor('1')" id="tab-1" class="px-6 py-1.5 rounded-lg bg-white text-slate-800 shadow-sm transition">ชั้น 1</button>
+                    <button onclick="switchFloor('B')" id="tab-B" class="px-6 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 transition">ชั้นใต้ดิน</button>
                 </div>
             </div>
 
-            <!-- เลือกเวลา -->
-            <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-4">
-                <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2">
-                    <span class="w-5 h-5 bg-red-800 text-white rounded-full flex items-center justify-center text-xs">1</span> เลือกกรอบเวลาเข้าใช้บริการ
-                </h2>
-                <div class="grid grid-cols-3 gap-2.5">
-                    <button onclick="selectTimeSlot('11:00 - 11:30', this)" class="time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition">11:00 - 11:30</button>
-                    <button onclick="selectTimeSlot('11:30 - 12:00', this)" class="time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition">11:30 - 12:00</button>
-                    <button onclick="selectTimeSlot('12:00 - 12:30', this)" class="time-btn active bg-red-800 text-white border-2 border-red-800 font-bold py-3 rounded-2xl text-xs transition shadow-sm">12:00 - 12:30</button>
-                    <button onclick="selectTimeSlot('12:30 - 13:00', this)" class="time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition">12:30 - 13:00</button>
-                    <button onclick="selectTimeSlot('13:00 - 13:30', this)" class="time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition">13:00 - 13:30</button>
-                    <button onclick="selectTimeSlot('13:30 - 14:00', this)" class="time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition">13:30 - 14:00</button>
+            <!-- ================= ผังชั้น 1 ================= -->
+            <div id="floor-1" class="space-y-3 relative my-auto">
+                <!-- โซนร้านอาหาร ด้านบน -->
+                <div class="bg-[#FCE8E6] text-[#C53929] font-bold text-xs py-1.5 rounded-lg text-center max-w-lg mx-auto">
+                    โซนร้านอาหาร
                 </div>
-            </div>
 
-            <!-- ผังโต๊ะตามสวิตช์ชั้น -->
-            <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/80 space-y-4 overflow-x-auto">
-                <div class="flex justify-between items-center border-b border-slate-100 pb-3">
-                    <h2 class="text-sm font-bold text-slate-800 flex items-center gap-2">
-                        <span class="w-5 h-5 bg-red-800 text-white rounded-full flex items-center justify-center text-xs">2</span> ผังโต๊ะรับประทานอาหาร
-                    </h2>
-                    <div class="bg-slate-100 p-1 rounded-xl flex gap-1 text-xs font-semibold">
-                        <button onclick="switchFloor('1')" id="tab-f1" class="px-4 py-1.5 rounded-lg bg-white text-slate-800 shadow">ชั้น 1</button>
-                        <button onclick="switchFloor('B')" id="tab-fb" class="px-4 py-1.5 rounded-lg text-slate-500 hover:text-slate-800">ชั้นใต้ดิน</button>
+                <div class="flex gap-3 justify-center items-center">
+                    <!-- พื้นที่โต๊ะหลัก -->
+                    <div class="space-y-3">
+                        <!-- แถว A -->
+                        <div class="grid grid-cols-6 gap-3">
+                            <button onclick="selectTable('A1')" id="btn-A1" class="btn-tbl bg-[#00C853] text-white font-bold text-xs py-3 rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">A1</button>
+                            <button onclick="selectTable('A2')" id="btn-A2" class="btn-tbl bg-[#00C853] text-white font-bold text-xs py-3 rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">A2</button>
+                            <button onclick="selectTable('A3')" id="btn-A3" class="btn-tbl bg-[#00C853] text-white font-bold text-xs py-3 rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">A3</button>
+                            <button onclick="selectTable('A4')" id="btn-A4" class="btn-tbl bg-[#00C853] text-white font-bold text-xs py-3 rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">A4</button>
+                            <button onclick="selectTable('A5')" id="btn-A5" class="btn-tbl bg-[#00C853] text-white font-bold text-xs py-3 rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">A5</button>
+                            <button onclick="selectTable('A6')" id="btn-A6" class="btn-tbl bg-[#00C853] text-white font-bold text-xs py-3 rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">A6</button>
+                        </div>
+
+                        <!-- แถว B -->
+                        <div class="flex items-center gap-3">
+                            <button onclick="selectTable('B1')" id="btn-B1" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">B1</button>
+                            <!-- โต๊ะเล็ก 6 ตัว -->
+                            <div class="grid grid-cols-2 gap-1 bg-slate-50 p-1 border border-slate-200 rounded">
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                            </div>
+                            <button onclick="selectTable('B2')" id="btn-B2" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">B2</button>
+                            <button onclick="selectTable('B3')" id="btn-B3" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">B3</button>
+                            <!-- โต๊ะเล็ก 6 ตัว -->
+                            <div class="grid grid-cols-2 gap-1 bg-slate-50 p-1 border border-slate-200 rounded">
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                            </div>
+                            <button onclick="selectTable('B4')" id="btn-B4" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">B4</button>
+                        </div>
+
+                        <!-- แถว C -->
+                        <div class="flex items-center gap-3">
+                            <button onclick="selectTable('C1')" id="btn-C1" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">C1</button>
+                            <div class="grid grid-cols-2 gap-1 bg-slate-50 p-1 border border-slate-200 rounded">
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                            </div>
+                            <button onclick="selectTable('C2')" id="btn-C2" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">C2</button>
+                            <button onclick="selectTable('C3')" id="btn-C3" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">C3</button>
+                            <div class="grid grid-cols-2 gap-1 bg-slate-50 p-1 border border-slate-200 rounded">
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                                <div class="w-3 h-2 bg-[#00C853] rounded-sm"></div><div class="w-3 h-2 bg-[#00C853] rounded-sm"></div>
+                            </div>
+                            <button onclick="selectTable('C4')" id="btn-C4" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">C4</button>
+                        </div>
+
+                        <!-- แถว D -->
+                        <div class="grid grid-cols-6 gap-3">
+                            <button onclick="selectTable('D1')" id="btn-D1" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">D1</button>
+                            <button onclick="selectTable('D2')" id="btn-D2" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">D2</button>
+                            <button onclick="selectTable('D3')" id="btn-D3" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">D3</button>
+                            <button onclick="selectTable('D4')" id="btn-D4" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">D4</button>
+                            <button onclick="selectTable('D5')" id="btn-D5" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">D5</button>
+                            <button onclick="selectTable('D6')" id="btn-D6" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center shadow-sm">D6</button>
+                        </div>
+
+                        <!-- แถว E (E1 - E9) -->
+                        <div class="grid grid-cols-9 gap-1.5 pt-2">
+                            <button onclick="selectTable('E1')" id="btn-E1" class="btn-tbl bg-[#00C853] text-white font-bold text-[11px] rounded-md h-9 flex items-center justify-center shadow-sm">E1</button>
+                            <button onclick="selectTable('E2')" id="btn-E2" class="btn-tbl bg-[#2962FF] text-white font-bold text-[11px] rounded-md h-9 flex items-center justify-center shadow-sm">E2</button>
+                            <button onclick="selectTable('E3')" id="btn-E3" class="btn-tbl bg-[#00C853] text-white font-bold text-[11px] rounded-md h-9 flex items-center justify-center shadow-sm">E3</button>
+                            <button onclick="selectTable('E4')" id="btn-E4" class="btn-tbl bg-[#00C853] text-white font-bold text-[11px] rounded-md h-9 flex items-center justify-center shadow-sm">E4</button>
+                            <button onclick="selectTable('E5')" id="btn-E5" class="btn-tbl bg-[#00C853] text-white font-bold text-[11px] rounded-md h-9 flex items-center justify-center shadow-sm">E5</button>
+                            <button onclick="selectTable('E6')" id="btn-E6" class="btn-tbl bg-[#00C853] text-white font-bold text-[11px] rounded-md h-9 flex items-center justify-center shadow-sm">E6</button>
+                            <button onclick="selectTable('E7')" id="btn-E7" class="btn-tbl bg-[#00C853] text-white font-bold text-[11px] rounded-md h-9 flex items-center justify-center shadow-sm">E7</button>
+                            <button onclick="selectTable('E8')" id="btn-E8" class="btn-tbl bg-[#00C853] text-white font-bold text-[11px] rounded-md h-9 flex items-center justify-center shadow-sm">E8</button>
+                            <button onclick="selectTable('E9')" id="btn-E9" class="btn-tbl bg-[#00C853] text-white font-bold text-[11px] rounded-md h-9 flex items-center justify-center shadow-sm">E9</button>
+                        </div>
                     </div>
-                </div>
 
-                <!-- ผังชั้น 1 -->
-                <div id="floor-1-view" class="food-court-layout">
-                    <!-- Top Zone -->
-                    <div style="grid-area: food-zone;" class="bg-rose-50 border border-rose-200 text-rose-700 font-bold text-xs py-2 rounded-xl text-center">
+                    <!-- โซนร้านอาหาร ด้านขวา -->
+                    <div class="bg-[#FCE8E6] text-[#C53929] font-bold text-[11px] px-1.5 py-8 rounded-lg [writing-mode:vertical-lr] text-center">
                         โซนร้านอาหาร
                     </div>
-
-                    <!-- Right Zone -->
-                    <div style="grid-area: right-zone;" class="bg-rose-50 border border-rose-200 text-rose-700 font-bold text-xs p-2 rounded-xl flex items-center justify-center [writing-mode:vertical-lr]">
-                        โซนร้านอาหาร
-                    </div>
-
-                    <!-- Left Zone / Dish Return -->
-                    <div style="grid-area: left-zone;" class="flex flex-col justify-end">
-                        <div class="bg-amber-400 text-amber-950 font-bold text-xs p-3 rounded-xl text-center shadow-sm">
-                            ที่เก็บจาน
-                        </div>
-                    </div>
-
-                    <!-- Main Seat Grid (Rows A-D) -->
-                    <div class="main-seat-grid">
-                        <!-- Row A -->
-                        <button onclick="selectTable('A1')" id="btn-A1" class="tbl bg-emerald-500 text-white">A1</button>
-                        <button onclick="selectTable('A2')" id="btn-A2" class="tbl bg-emerald-500 text-white">A2</button>
-                        <button onclick="selectTable('A3')" id="btn-A3" class="tbl bg-emerald-500 text-white">A3</button>
-                        <button onclick="selectTable('A4')" id="btn-A4" class="tbl bg-emerald-500 text-white">A4</button>
-                        <button onclick="selectTable('A5')" id="btn-A5" class="tbl bg-emerald-500 text-white">A5</button>
-                        <button onclick="selectTable('A6')" id="btn-A6" class="tbl bg-emerald-500 text-white">A6</button>
-
-                        <!-- Row B -->
-                        <button onclick="selectTable('B1')" id="btn-B1" class="tbl bg-emerald-500 text-white">B1</button>
-                        <div class="grid grid-cols-2 gap-1 w-full h-10 bg-slate-100 p-1 rounded"><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span></div>
-                        <button onclick="selectTable('B2')" id="btn-B2" class="tbl bg-emerald-500 text-white">B2</button>
-                        <button onclick="selectTable('B3')" id="btn-B3" class="tbl bg-emerald-500 text-white">B3</button>
-                        <div class="grid grid-cols-2 gap-1 w-full h-10 bg-slate-100 p-1 rounded"><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span></div>
-                        <button onclick="selectTable('B4')" id="btn-B4" class="tbl bg-emerald-500 text-white">B4</button>
-
-                        <!-- Row C -->
-                        <button onclick="selectTable('C1')" id="btn-C1" class="tbl bg-emerald-500 text-white">C1</button>
-                        <div class="grid grid-cols-2 gap-1 w-full h-10 bg-slate-100 p-1 rounded"><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span></div>
-                        <button onclick="selectTable('C2')" id="btn-C2" class="tbl bg-emerald-500 text-white">C2</button>
-                        <button onclick="selectTable('C3')" id="btn-C3" class="tbl bg-emerald-500 text-white">C3</button>
-                        <div class="grid grid-cols-2 gap-1 w-full h-10 bg-slate-100 p-1 rounded"><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span><span class="bg-emerald-500 rounded"></span></div>
-                        <button onclick="selectTable('C4')" id="btn-C4" class="tbl bg-emerald-500 text-white">C4</button>
-
-                        <!-- Row D -->
-                        <button onclick="selectTable('D1')" id="btn-D1" class="tbl bg-emerald-500 text-white">D1</button>
-                        <button onclick="selectTable('D2')" id="btn-D2" class="tbl bg-emerald-500 text-white">D2</button>
-                        <button onclick="selectTable('D3')" id="btn-D3" class="tbl bg-emerald-500 text-white">D3</button>
-                        <button onclick="selectTable('D4')" id="btn-D4" class="tbl bg-emerald-500 text-white">D4</button>
-                        <button onclick="selectTable('D5')" id="btn-D5" class="tbl bg-emerald-500 text-white">D5</button>
-                        <button onclick="selectTable('D6')" id="btn-D6" class="tbl bg-emerald-500 text-white">D6</button>
-                    </div>
-
-                    <!-- Row E Grid -->
-                    <div class="row-e-grid">
-                        <button onclick="selectTable('E1')" id="btn-E1" class="tbl bg-emerald-500 text-white">E1</button>
-                        <button onclick="selectTable('E2')" id="btn-E2" class="tbl bg-blue-600 text-white ring-2 ring-blue-400">E2</button>
-                        <button onclick="selectTable('E3')" id="btn-E3" class="tbl bg-emerald-500 text-white">E3</button>
-                        <button onclick="selectTable('E4')" id="btn-E4" class="tbl bg-emerald-500 text-white">E4</button>
-                        <button onclick="selectTable('E5')" id="btn-E5" class="tbl bg-emerald-500 text-white">E5</button>
-                        <button onclick="selectTable('E6')" id="btn-E6" class="tbl bg-emerald-500 text-white">E6</button>
-                        <button onclick="selectTable('E7')" id="btn-E7" class="tbl bg-emerald-500 text-white">E7</button>
-                        <button onclick="selectTable('E8')" id="btn-E8" class="tbl bg-emerald-500 text-white">E8</button>
-                        <button onclick="selectTable('E9')" id="btn-E9" class="tbl bg-emerald-500 text-white">E9</button>
-                    </div>
                 </div>
 
-                <!-- ผังชั้นใต้ดิน -->
-                <div id="floor-b-view" class="lower-layout hidden">
-                    <div class="flex flex-col justify-end">
-                        <div class="bg-amber-400 text-amber-950 font-bold text-xs p-3 rounded-xl text-center shadow-sm">
-                            ที่เก็บจาน
-                        </div>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="bg-slate-200 border border-slate-300 text-slate-700 font-bold text-xs py-1.5 text-center rounded-xl max-w-xs mx-auto">
-                            ทางลงบันไดลง
-                        </div>
-                        <div class="lower-seat-grid">
-                            <!-- U11-U16 -->
-                            <button onclick="selectTable('U11')" id="btn-U11" class="tbl bg-emerald-500 text-white">U11</button>
-                            <button onclick="selectTable('U12')" id="btn-U12" class="tbl bg-emerald-500 text-white">U12</button>
-                            <div></div>
-                            <button onclick="selectTable('U13')" id="btn-U13" class="tbl bg-emerald-500 text-white">U13</button>
-                            <button onclick="selectTable('U14')" id="btn-U14" class="tbl bg-emerald-500 text-white">U14</button>
-                            <button onclick="selectTable('U15')" id="btn-U15" class="tbl bg-emerald-500 text-white">U15</button>
-                            <button onclick="selectTable('U16')" id="btn-U16" class="tbl bg-emerald-500 text-white">U16</button>
-                            <div></div>
-                            <div></div><div></div>
-
-                            <!-- U21-U26 -->
-                            <button onclick="selectTable('U21')" id="btn-U21" class="tbl bg-emerald-500 text-white">U21</button>
-                            <button onclick="selectTable('U22')" id="btn-U22" class="tbl bg-emerald-500 text-white">U22</button>
-                            <div></div>
-                            <button onclick="selectTable('U23')" id="btn-U23" class="tbl bg-emerald-500 text-white">U23</button>
-                            <button onclick="selectTable('U24')" id="btn-U24" class="tbl bg-emerald-500 text-white">U24</button>
-                            <button onclick="selectTable('U25')" id="btn-U25" class="tbl bg-emerald-500 text-white">U25</button>
-                            <button onclick="selectTable('U26')" id="btn-U26" class="tbl bg-emerald-500 text-white">U26</button>
-                            <div></div>
-                            <div></div><div></div>
-
-                            <!-- U31-U36 -->
-                            <button onclick="selectTable('U31')" id="btn-U31" class="tbl bg-emerald-500 text-white">U31</button>
-                            <button onclick="selectTable('U32')" id="btn-U32" class="tbl bg-emerald-500 text-white">U32</button>
-                            <div></div>
-                            <button onclick="selectTable('U33')" id="btn-U33" class="tbl bg-emerald-500 text-white">U33</button>
-                            <button onclick="selectTable('U34')" id="btn-U34" class="tbl bg-emerald-500 text-white">U34</button>
-                            <button onclick="selectTable('U35')" id="btn-U35" class="tbl bg-emerald-500 text-white">U35</button>
-                            <button onclick="selectTable('U36')" id="btn-U36" class="tbl bg-emerald-500 text-white">U36</button>
-                            <div></div>
-                            <div></div><div></div>
-
-                            <!-- U41-U46 -->
-                            <button onclick="selectTable('U41')" id="btn-U41" class="tbl bg-emerald-500 text-white">U41</button>
-                            <button onclick="selectTable('U42')" id="btn-U42" class="tbl bg-emerald-500 text-white">U42</button>
-                            <div></div>
-                            <button onclick="selectTable('U43')" id="btn-U43" class="tbl bg-emerald-500 text-white">U43</button>
-                            <button onclick="selectTable('U44')" id="btn-U44" class="tbl bg-emerald-500 text-white">U44</button>
-                            <button onclick="selectTable('U45')" id="btn-U45" class="tbl bg-emerald-500 text-white">U45</button>
-                            <button onclick="selectTable('U46')" id="btn-U46" class="tbl bg-emerald-500 text-white">U46</button>
-                            <div></div>
-                            <div></div><div></div>
-
-                            <!-- Spacer row -->
-                            <div class="col-span-10"></div>
-
-                            <!-- U51-U54 -->
-                            <div></div><div></div><div></div>
-                            <button onclick="selectTable('U51')" id="btn-U51" class="tbl bg-emerald-500 text-white">U51</button>
-                            <button onclick="selectTable('U52')" id="btn-U52" class="tbl bg-emerald-500 text-white">U52</button>
-                            <button onclick="selectTable('U53')" id="btn-U53" class="tbl bg-emerald-500 text-white">U53</button>
-                            <button onclick="selectTable('U54')" id="btn-U54" class="tbl bg-emerald-500 text-white">U54</button>
-                        </div>
-                    </div>
-
-                    <!-- Pillars -->
-                    <div class="space-y-6 pt-12">
-                        <div class="w-3 h-10 bg-slate-400 rounded-sm mx-auto"></div>
-                        <div class="w-3 h-10 bg-slate-400 rounded-sm mx-auto"></div>
-                        <div class="w-3 h-10 bg-slate-400 rounded-sm mx-auto"></div>
+                <!-- ที่เก็บจาน ซ้ายล่าง -->
+                <div class="pt-2">
+                    <div class="bg-[#FFC107] text-slate-900 font-bold text-[10px] px-3 py-2 rounded-lg inline-block shadow-sm">
+                        ที่เก็บจาน
                     </div>
                 </div>
             </div>
 
+            <!-- ================= ผังชั้นใต้ดิน ================= -->
+            <div id="floor-B" class="hidden space-y-3 relative my-auto">
+                <!-- ทางลงบันไดลง -->
+                <div class="border border-slate-400 text-slate-700 font-bold text-xs py-1 px-6 rounded text-center w-fit mx-auto">
+                    ทางลงบันไดลง
+                </div>
+
+                <div class="flex gap-4 justify-center items-center pt-2">
+                    <div class="space-y-3">
+                        <!-- U11 - U16 -->
+                        <div class="grid grid-cols-6 gap-3">
+                            <button onclick="selectTable('U11')" id="btn-U11" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U11</button>
+                            <button onclick="selectTable('U12')" id="btn-U12" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U12</button>
+                            <button onclick="selectTable('U13')" id="btn-U13" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U13</button>
+                            <button onclick="selectTable('U14')" id="btn-U14" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U14</button>
+                            <button onclick="selectTable('U15')" id="btn-U15" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U15</button>
+                            <button onclick="selectTable('U16')" id="btn-U16" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U16</button>
+                        </div>
+                        <!-- U21 - U26 -->
+                        <div class="grid grid-cols-6 gap-3">
+                            <button onclick="selectTable('U21')" id="btn-U21" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U21</button>
+                            <button onclick="selectTable('U22')" id="btn-U22" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U22</button>
+                            <button onclick="selectTable('U23')" id="btn-U23" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U23</button>
+                            <button onclick="selectTable('U24')" id="btn-U24" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U24</button>
+                            <button onclick="selectTable('U25')" id="btn-U25" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U25</button>
+                            <button onclick="selectTable('U26')" id="btn-U26" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U26</button>
+                        </div>
+                        <!-- U31 - U36 -->
+                        <div class="grid grid-cols-6 gap-3">
+                            <button onclick="selectTable('U31')" id="btn-U31" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U31</button>
+                            <button onclick="selectTable('U32')" id="btn-U32" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U32</button>
+                            <button onclick="selectTable('U33')" id="btn-U33" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U33</button>
+                            <button onclick="selectTable('U34')" id="btn-U34" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U34</button>
+                            <button onclick="selectTable('U35')" id="btn-U35" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U35</button>
+                            <button onclick="selectTable('U36')" id="btn-U36" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U36</button>
+                        </div>
+                        <!-- U41 - U46 -->
+                        <div class="grid grid-cols-6 gap-3">
+                            <button onclick="selectTable('U41')" id="btn-U41" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U41</button>
+                            <button onclick="selectTable('U42')" id="btn-U42" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U42</button>
+                            <button onclick="selectTable('U43')" id="btn-U43" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U43</button>
+                            <button onclick="selectTable('U44')" id="btn-U44" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U44</button>
+                            <button onclick="selectTable('U45')" id="btn-U45" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U45</button>
+                            <button onclick="selectTable('U46')" id="btn-U46" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U46</button>
+                        </div>
+                        <!-- U51 - U54 -->
+                        <div class="grid grid-cols-6 gap-3 pt-3">
+                            <div></div><div></div>
+                            <button onclick="selectTable('U51')" id="btn-U51" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U51</button>
+                            <button onclick="selectTable('U52')" id="btn-U52" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U52</button>
+                            <button onclick="selectTable('U53')" id="btn-U53" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U53</button>
+                            <button onclick="selectTable('U54')" id="btn-U54" class="btn-tbl bg-[#00C853] text-white font-bold text-xs rounded-lg w-12 h-10 flex items-center justify-center">U54</button>
+                        </div>
+                    </div>
+
+                    <!-- เสาสี่เหลี่ยมฝั่งขวา -->
+                    <div class="space-y-4 pl-2">
+                        <div class="w-2.5 h-6 bg-slate-400 rounded-sm"></div>
+                        <div class="w-2.5 h-6 bg-slate-400 rounded-sm"></div>
+                        <div class="w-2.5 h-6 bg-slate-400 rounded-sm"></div>
+                        <div class="w-2.5 h-16 bg-slate-400 rounded-sm"></div>
+                    </div>
+                </div>
+
+                <!-- ที่เก็บจาน -->
+                <div class="pt-2">
+                    <div class="bg-[#FFC107] text-slate-900 font-bold text-[10px] px-3 py-2 rounded-lg inline-block shadow-sm">
+                        ที่เก็บจาน
+                    </div>
+                </div>
+            </div>
+
+            <div></div>
         </div>
 
-        <!-- ฝั่งสรุปการจอง -->
-        <div class="bg-slate-900 text-white rounded-3xl p-6 shadow-xl flex flex-col justify-between h-fit space-y-6">
+        <!-- ฝั่งขวา: สรุปรายการจอง -->
+        <div class="bg-[#1C202B] text-white rounded-xl p-5 shadow-lg space-y-8 flex flex-col justify-between h-full min-h-[580px]">
             <div class="space-y-6">
-                <h2 class="text-base font-bold border-b border-slate-800 pb-3">สรุปรายการจอง</h2>
+                <h2 class="text-sm font-bold border-b border-slate-700/60 pb-3">สรุปรายการจอง</h2>
 
+                <!-- แสดงโต๊ะที่เลือก -->
                 <div class="space-y-1">
-                    <p class="text-xs text-slate-400">โต๊ะที่เลือก</p>
-                    <h3 id="display-table-id" class="text-3xl font-extrabold text-blue-400">โต๊ะ: E2</h3>
+                    <p class="text-[11px] text-slate-400">โต๊ะที่เลือก</p>
+                    <h3 id="selected-table-text" class="text-2xl font-black text-[#2962FF]">โต๊ะ: E2</h3>
                 </div>
 
+                <!-- รอบเวลา -->
                 <div class="space-y-1">
-                    <p class="text-xs text-slate-400">รอบเวลาเข้าใช้งาน</p>
-                    <p id="display-time-slot" class="text-base font-bold text-slate-200">12:00 - 12:30 น.</p>
+                    <p class="text-[10px] text-slate-400">รอบเวลาเข้าใช้งาน</p>
+                    <p class="text-xs font-semibold bg-slate-800/80 px-2.5 py-1.5 rounded text-slate-200 inline-block">12:00-12:30 น.</p>
                 </div>
             </div>
 
-            <div class="space-y-3 pt-6">
-                <button onclick="confirmBooking()" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3.5 rounded-2xl text-xs transition shadow-lg active:scale-95">
+            <div class="space-y-2">
+                <button onclick="alert('ยืนยันการจองเรียบร้อย')" class="w-full bg-[#D32F2F] hover:bg-[#B71C1C] text-white font-bold py-3 rounded-lg text-xs transition shadow-md">
                     ยืนยันการจอง
                 </button>
-                <p class="text-[10px] text-slate-400 text-center">* เมื่อยืนยัน ระบบจะพาไปหน้าตั๋วเพื่อสแกน QR Code เช็คอิน</p>
+                <p class="text-[9px] text-slate-500 text-center">* เมื่อยืนยัน ระบบจะพาไปหน้าตั๋วเพื่อสแกน QR Code เช็คอิน</p>
             </div>
         </div>
 
@@ -357,68 +251,44 @@
 
     <script>
         let selectedTable = 'E2';
-        let selectedTime = '12:00 - 12:30';
-        let currentFloor = '1';
-
-        function selectTimeSlot(timeStr, btn) {
-            selectedTime = timeStr;
-            document.querySelectorAll('.time-btn').forEach(b => {
-                b.className = "time-btn bg-slate-50 border border-slate-200 hover:border-red-800 text-slate-700 font-semibold py-3 rounded-2xl text-xs transition";
-            });
-            btn.className = "time-btn active bg-red-800 text-white border-2 border-red-800 font-bold py-3 rounded-2xl text-xs transition shadow-sm";
-            document.getElementById('display-time-slot').innerText = `${selectedTime} น.`;
-        }
 
         function switchFloor(floor) {
-            currentFloor = floor;
-            const f1 = document.getElementById('floor-1-view');
-            const fb = document.getElementById('floor-b-view');
-            const tab1 = document.getElementById('tab-f1');
-            const tabb = document.getElementById('tab-fb');
+            const f1 = document.getElementById('floor-1');
+            const fB = document.getElementById('floor-B');
+            const tab1 = document.getElementById('tab-1');
+            const tabB = document.getElementById('tab-B');
 
             if(floor === '1') {
                 f1.classList.remove('hidden');
-                fb.classList.add('hidden');
-                tab1.className = "px-4 py-1.5 rounded-lg bg-white text-slate-800 shadow";
-                tabb.className = "px-4 py-1.5 rounded-lg text-slate-500 hover:text-slate-800";
+                fB.classList.add('hidden');
+                tab1.className = "px-6 py-1.5 rounded-lg bg-white text-slate-800 shadow-sm transition";
+                tabB.className = "px-6 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 transition";
                 selectTable('E2');
             } else {
                 f1.classList.add('hidden');
-                fb.classList.remove('hidden');
-                tabb.className = "px-4 py-1.5 rounded-lg bg-white text-slate-800 shadow";
-                tab1.className = "px-4 py-1.5 rounded-lg text-slate-500 hover:text-slate-800";
+                fB.classList.remove('hidden');
+                tabB.className = "px-6 py-1.5 rounded-lg bg-white text-slate-800 shadow-sm transition";
+                tab1.className = "px-6 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 transition";
                 selectTable('U11');
             }
         }
 
         function selectTable(id) {
             selectedTable = id;
-            document.querySelectorAll('.tbl').forEach(b => {
-                b.classList.remove('bg-blue-600', 'ring-2', 'ring-blue-400');
-                b.classList.add('bg-emerald-500');
+            document.querySelectorAll('.btn-tbl').forEach(btn => {
+                btn.classList.remove('bg-[#2962FF]');
+                btn.classList.add('bg-[#00C853]');
             });
+
             const target = document.getElementById(`btn-${id}`);
             if(target) {
-                target.classList.remove('bg-emerald-500');
-                target.classList.add('bg-blue-600', 'ring-2', 'ring-blue-400');
+                target.classList.remove('bg-[#00C853]');
+                target.classList.add('bg-[#2962FF]');
             }
-            document.getElementById('display-table-id').innerText = `โต๊ะ: ${selectedTable}`;
-        }
 
-        function confirmBooking() {
-            alert(`ยืนยันการจองเรียบร้อย!\nโต๊ะ: ${selectedTable}\nเวลา: ${selectedTime} น.`);
-            window.location.href = 'booking.html';
-        }
-
-        function toggleUserDropdown(e) {
-            e.stopPropagation();
-            document.getElementById('user-dropdown').classList.toggle('hidden');
-        }
-
-        function handleLogout() {
-            localStorage.clear();
-            location.reload();
+            document.getElementById('selected-table-text').innerText = `โต๊ะ: ${selectedTable}`;
         }
     </script>
+
 </body>
 </html>
