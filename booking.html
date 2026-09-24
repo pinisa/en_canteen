@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KKU Innovation Complex ศูนย์อาหารคณะวิศวกรรมศาสตร์</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- โหลดไลบรารีอ่าน QR Code Real-time -->
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Kanit', sans-serif; }
@@ -24,7 +26,6 @@
     <header class="bg-red-800 text-white shadow-md sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             
-            <!-- โลโก้และชื่อศูนย์อาหาร -->
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-white text-red-800 rounded-xl flex items-center justify-center font-bold text-xs shadow">ENKKU</div>
                 <div>
@@ -33,7 +34,6 @@
                 </div>
             </div>
 
-            <!-- Navigation Links -->
             <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
                 <a href="index.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -49,7 +49,6 @@
                 </a>
             </nav>
 
-            <!-- Profile Dropdown -->
             <div class="relative">
                 <button onclick="toggleUserDropdown(event)" class="bg-red-900/70 hover:bg-red-900 px-3 py-1.5 rounded-full text-xs flex items-center gap-2 border border-red-700/60 shadow-inner transition active:scale-95">
                     <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
@@ -76,7 +75,6 @@
 
     <main class="max-w-xl mx-auto p-4 md:p-6 space-y-4">
 
-        <!-- Banner Header -->
         <div class="bg-emerald-600 text-white rounded-3xl p-5 text-center shadow-md space-y-1">
             <div class="inline-flex items-center gap-1.5 bg-emerald-700/80 px-3 py-1 rounded-full text-xs font-semibold">
                 <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
@@ -111,7 +109,7 @@
 
             <div class="space-y-3 text-center">
                 <p class="text-xs text-slate-500 font-medium">
-                    ทาบช่องกล้องให้ตรงกับป้าย QR Code ที่ติดอยู่บนโต๊ะ <strong class="text-red-800" id="scan-target-text">A-01</strong>
+                    ทาบช่องกล้องให้ตรงกับป้าย QR Code บนโต๊ะ <strong class="text-red-800" id="scan-target-text">A-01</strong>
                 </p>
 
                 <div class="grid grid-cols-2 gap-2 text-xs">
@@ -119,7 +117,7 @@
                         <span>📷 สลับกล้อง / เปิดใหม่</span>
                     </button>
                     <button onclick="onScanSuccess()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow flex items-center justify-center gap-1.5 active:scale-95">
-                        <span>✅ สแกนโต๊ะสำเร็จ</span>
+                        <span>⚡ จำลองเช็คอิน</span>
                     </button>
                 </div>
             </div>
@@ -139,7 +137,6 @@
 
         <!-- VIEW 2: หน้าจอผลลัพธ์เมื่อสแกนเช็คอินสำเร็จ -->
         <div id="success-view" class="hidden bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden p-6 md:p-8 space-y-6 text-center animate-fade-in">
-            
             <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner animate-bounce">
                 ✓
             </div>
@@ -196,9 +193,11 @@
         </div>
     </div>
 
-    <!-- Camera Scanner logic & State Handlers -->
+    <!-- Real-time Camera QR Scanner Engine -->
     <script>
         let videoStream = null;
+        let animationFrameId = null;
+        let isScanning = false;
 
         window.addEventListener('DOMContentLoaded', () => {
             loadUserProfile();
@@ -260,7 +259,7 @@
             }
         }
 
-        // Initialize Native Device Camera Stream
+        // เปิดกล้องและเริ่มสแกนเฟรม
         async function startCamera() {
             const video = document.getElementById('camera-stream');
             const placeholder = document.getElementById('camera-placeholder');
@@ -270,17 +269,58 @@
                     video: { facingMode: "environment" }
                 });
                 video.srcObject = videoStream;
+                video.setAttribute("playsinline", true); // สำหรับ iOS
                 placeholder.classList.add('hidden');
+
+                // เริ่มกระบวนการถอดรหัส QR Code จากภาพกล้อง
+                isScanning = true;
+                requestAnimationFrame(scanFrame);
             } catch (err) {
                 console.warn("Camera access denied or unavailable:", err);
                 placeholder.innerHTML = `
                     <span class="text-3xl">⚠️</span>
-                    <p class="text-xs text-amber-400 px-4 text-center">ไม่พบกล้องหรือยังไม่อนุญาตการเข้าถึงกล้อง สามารถกดปุ่ม "สแกนโต๊ะสำเร็จ" ด้านล่างเพื่อทดสอบได้</p>
+                    <p class="text-xs text-amber-400 px-4 text-center">ไม่พบกล้องหรือยังไม่อนุญาตการเข้าถึงกล้อง สามารถกดปุ่ม "จำลองเช็คอิน" ด้านล่างเพื่อทดสอบได้</p>
                 `;
             }
         }
 
+        // ลูปประมวลผลวิดีโอเพื่อถอดรหัส QR Code Real-time
+        function scanFrame() {
+            if (!isScanning) return;
+
+            const video = document.getElementById('camera-stream');
+
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                const canvas = document.createElement("canvas");
+                canvas.width = video.videoWidth;
+                canvas.height = video.videoHeight;
+                const ctx = canvas.getContext("2d");
+                ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                
+                // ถอดรหัสด้วย jsQR
+                const code = jsQR(imageData.data, imageData.width, imageData.height, {
+                    inversionAttempts: "dontInvert",
+                });
+
+                if (code && code.data) {
+                    console.log("QR Code Detected:", code.data);
+                    
+                    // สแกนเจอ QR Code อะไรก็ได้ ถือว่าเช็คอินสำเร็จทันที
+                    onScanSuccess();
+                    return; // หยุดลูป
+                }
+            }
+
+            animationFrameId = requestAnimationFrame(scanFrame);
+        }
+
         function stopCamera() {
+            isScanning = false;
+            if (animationFrameId) {
+                cancelAnimationFrame(animationFrameId);
+            }
             if (videoStream) {
                 videoStream.getTracks().forEach(track => track.stop());
             }
@@ -291,12 +331,10 @@
             startCamera();
         }
 
-        // Triggered when QR code scan is successful
         function onScanSuccess() {
             stopCamera();
             const seat = localStorage.getItem('booking_seat') || 'A-01';
 
-            // อัปเดตสถานะในประวัติการจองเป็น completed
             updateBookingHistoryStatus(seat, 'completed');
 
             document.getElementById('scanner-view').classList.add('hidden');
@@ -307,7 +345,6 @@
         function updateBookingHistoryStatus(seat, status) {
             let history = JSON.parse(localStorage.getItem('kku_booking_history')) || [];
             if (history.length > 0) {
-                // ค้นหารายการล่าสุดของโต๊ะนี้ หรือรายการล่าสุดในระบบ
                 const lastBooking = history.find(h => h.table === seat) || history[0];
                 if (lastBooking) {
                     lastBooking.status = status;
