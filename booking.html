@@ -24,7 +24,7 @@
     <header class="bg-red-800 text-white shadow-md sticky top-0 z-40">
         <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
             
-            <!-- 1. โลโก้และชื่อศูนย์อาหาร (อัปเดตเป็น ENKKU) -->
+            <!-- โลโก้และชื่อศูนย์อาหาร -->
             <div class="flex items-center gap-3">
                 <div class="w-10 h-10 bg-white text-red-800 rounded-xl flex items-center justify-center font-bold text-xs shadow">ENKKU</div>
                 <div>
@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <!-- 2. เมนู Navigation (คงปุ่ม สั่งอาหาร ไว้ตามเดิม) -->
+            <!-- Navigation Links -->
             <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
                 <a href="index.html" class="text-red-200 hover:text-white transition flex items-center gap-1.5">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -49,7 +49,7 @@
                 </a>
             </nav>
 
-            <!-- 3. เมนูโปรไฟล์แบบกดได้ (อัปเดตระบบ Dropdown) -->
+            <!-- Profile Dropdown -->
             <div class="relative">
                 <button onclick="toggleUserDropdown(event)" class="bg-red-900/70 hover:bg-red-900 px-3 py-1.5 rounded-full text-xs flex items-center gap-2 border border-red-700/60 shadow-inner transition active:scale-95">
                     <span class="w-2.5 h-2.5 bg-emerald-400 rounded-full animate-pulse"></span>
@@ -60,13 +60,13 @@
                 <div id="user-dropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 py-1.5 z-50 text-xs text-slate-700 space-y-1">
                     <div class="px-4 py-2 border-b border-slate-100">
                         <p class="text-[10px] text-slate-400">เข้าสู่ระบบด้วย</p>
-                        <p id="dropdown-user-email" class="font-bold text-slate-800 truncate">@kkumail.com</p>
+                        <p id="dropdown-user-email" class="font-bold text-slate-800 truncate">student@kkumail.com</p>
                     </div>
                     <button onclick="openChangeNameModal()" class="w-full text-left px-4 py-2 hover:bg-slate-50 flex items-center gap-2 font-medium transition">
-                        เปลี่ยนชื่อผู้ใช้งาน
+                        ✏️ เปลี่ยนชื่อผู้ใช้งาน
                     </button>
                     <button onclick="handleLogout()" class="w-full text-left px-4 py-2 hover:bg-rose-50 text-rose-600 flex items-center gap-2 font-medium transition">
-                        ออกจากระบบ
+                        🔄 รีเซ็ตระบบ / ออกจากระบบ
                     </button>
                 </div>
             </div>
@@ -76,7 +76,7 @@
 
     <main class="max-w-xl mx-auto p-4 md:p-6 space-y-4">
 
-        <!-- Banner Header (ปรับข้อความ) -->
+        <!-- Banner Header -->
         <div class="bg-emerald-600 text-white rounded-3xl p-5 text-center shadow-md space-y-1">
             <div class="inline-flex items-center gap-1.5 bg-emerald-700/80 px-3 py-1 rounded-full text-xs font-semibold">
                 <span class="w-2 h-2 bg-white rounded-full animate-ping"></span>
@@ -86,39 +86,29 @@
             <p class="text-xs text-emerald-100">ส่องกล้องไปที่ป้าย QR Code บนโต๊ะหมายเลข <span id="target-seat-label" class="font-bold underline text-white">A-01</span></p>
         </div>
 
-        <!-- ------------------------------------------------------------- -->
-        <!-- VIEW 1: หน้ากล้องสแกน QR Code (Camera Scanner Viewport) -->
-        <!-- ------------------------------------------------------------- -->
+        <!-- VIEW 1: หน้ากล้องสแกน QR Code -->
         <div id="scanner-view" class="bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden p-6 space-y-5">
             
-            <!-- Camera Viewfinder Box -->
             <div class="relative w-full h-72 bg-slate-900 rounded-2xl overflow-hidden flex items-center justify-center border-4 border-slate-800 shadow-inner">
-                
-                <!-- HTML5 Video Stream for Camera -->
                 <video id="camera-stream" class="w-full h-full object-cover" autoplay playsinline muted></video>
 
-                <!-- Camera Offline/Loading Placeholder -->
                 <div id="camera-placeholder" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 bg-slate-900 space-y-2">
                     <span class="text-4xl animate-bounce">📷</span>
                     <p class="text-xs font-medium">กำลังเปิดใช้งานกล้อง...</p>
                 </div>
 
-                <!-- Scanning Frame Overlay -->
                 <div id="scanner-overlay" class="absolute inset-0 border-[36px] border-slate-900/60 flex items-center justify-center pointer-events-none">
                     <div class="relative w-48 h-48 border-2 border-emerald-400 rounded-xl shadow-[0_0_15px_rgba(52,211,153,0.5)]">
-                        <!-- Corner Markers -->
                         <div class="absolute -top-1 -left-1 w-5 h-5 border-t-4 border-l-4 border-emerald-500"></div>
                         <div class="absolute -top-1 -right-1 w-5 h-5 border-t-4 border-r-4 border-emerald-500"></div>
                         <div class="absolute -bottom-1 -left-1 w-5 h-5 border-b-4 border-l-4 border-emerald-500"></div>
                         <div class="absolute -bottom-1 -right-1 w-5 h-5 border-b-4 border-r-4 border-emerald-500"></div>
                         
-                        <!-- Animated Laser Scanning Line -->
                         <div class="scan-laser absolute inset-x-2 h-0.5 bg-emerald-400 shadow-[0_0_8px_#34d399]"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Scanner Status & Actions -->
             <div class="space-y-3 text-center">
                 <p class="text-xs text-slate-500 font-medium">
                     ทาบช่องกล้องให้ตรงกับป้าย QR Code ที่ติดอยู่บนโต๊ะ <strong class="text-red-800" id="scan-target-text">A-01</strong>
@@ -126,16 +116,14 @@
 
                 <div class="grid grid-cols-2 gap-2 text-xs">
                     <button onclick="toggleCamera()" id="btn-toggle-cam" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold py-3 rounded-xl transition flex items-center justify-center gap-1.5">
-                        <span>สลับกล้อง / เปิดใหม่</span>
+                        <span>📷 สลับกล้อง / เปิดใหม่</span>
                     </button>
-                    <!-- Simulation Button for Quick Dev Testing -->
                     <button onclick="onScanSuccess()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl transition shadow flex items-center justify-center gap-1.5 active:scale-95">
-                        <span> สแกนโต๊ะสำเร็จ</span>
+                        <span>✅ สแกนโต๊ะสำเร็จ</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Table & Booking Summary Info (ลบสถานะอาหารออก) -->
             <div class="space-y-2 bg-slate-50 p-4 rounded-2xl border border-slate-200 text-xs">
                 <div class="flex justify-between text-slate-600">
                     <span>หมายเลขโต๊ะที่จอง:</span>
@@ -149,10 +137,7 @@
 
         </div>
 
-
-        <!-- ------------------------------------------------------------- -->
-        <!-- VIEW 2: หน้าจอผลลัพธ์เมื่อสแกนเช็คอินสำเร็จ (Checked-in View) -->
-        <!-- ------------------------------------------------------------- -->
+        <!-- VIEW 2: หน้าจอผลลัพธ์เมื่อสแกนเช็คอินสำเร็จ -->
         <div id="success-view" class="hidden bg-white rounded-3xl shadow-xl border border-slate-100 overflow-hidden p-6 md:p-8 space-y-6 text-center animate-fade-in">
             
             <div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-4xl shadow-inner animate-bounce">
@@ -161,10 +146,9 @@
 
             <div class="space-y-1">
                 <h3 class="text-2xl font-black text-slate-800">เช็คอินโต๊ะสำเร็จ!</h3>
-                <p class="text-xs text-slate-500">ระบบทำการเปิดใช้งานโต๊ะในระบบเรียบร้อยแล้ว</p>
+                <p class="text-xs text-slate-500">ระบบทำการเปิดใช้งานโต๊ะและอัปเดตประวัติการจองเรียบร้อยแล้ว</p>
             </div>
 
-            <!-- Table Active Card -->
             <div class="bg-amber-50 border-2 border-amber-300 rounded-3xl p-5 space-y-2 text-amber-900 shadow-sm">
                 <span class="text-xs font-bold text-amber-700 block uppercase tracking-wider">กำลังใช้งานโต๊ะ</span>
                 <h4 class="text-4xl font-black text-red-800" id="active-table-no">A-01</h4>
@@ -178,7 +162,7 @@
 
     </main>
 
-    <!-- Mobile Navigation Bar (คงปุ่ม สั่งอาหาร ไว้ตามเดิม) -->
+    <!-- Mobile Navigation Bar -->
     <nav class="md:hidden fixed bottom-0 inset-x-0 bg-white border-t border-slate-200 flex justify-around py-2.5 text-xs font-medium z-40 shadow-lg">
         <a href="index.html" class="text-slate-400 hover:text-red-800 flex flex-col items-center gap-0.5">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -217,13 +201,11 @@
         let videoStream = null;
 
         window.addEventListener('DOMContentLoaded', () => {
+            loadUserProfile();
+
             const seat = localStorage.getItem('booking_seat') || 'A-01';
             const time = localStorage.getItem('booking_time') || '11:30 - 12:00';
-            const email = localStorage.getItem('kku_user_email') || 'nepal@kkumail.com';
 
-            document.getElementById('user-display-name').innerText = email.split('@')[0];
-            document.getElementById('dropdown-user-email').innerText = email;
-            
             document.getElementById('target-seat-label').innerText = seat;
             document.getElementById('scan-target-text').innerText = seat;
             document.getElementById('summary-seat').innerText = `${seat} (ศูนย์อาหารคณะวิศวกรรมศาสตร์)`;
@@ -231,6 +213,14 @@
 
             startCamera();
         });
+
+        function loadUserProfile() {
+            const name = localStorage.getItem('user_name') || 'นักศึกษา KKU';
+            const email = localStorage.getItem('user_email') || 'student@kkumail.com';
+            
+            document.getElementById('user-display-name').innerText = name;
+            document.getElementById('dropdown-user-email').innerText = email;
+        }
 
         function toggleUserDropdown(event) {
             event.stopPropagation();
@@ -245,7 +235,7 @@
         });
 
         function openChangeNameModal() {
-            const currentName = document.getElementById('user-display-name').innerText;
+            const currentName = localStorage.getItem('user_name') || '';
             document.getElementById('input-new-name').value = currentName;
             document.getElementById('name-modal').classList.remove('hidden');
         }
@@ -257,18 +247,16 @@
         function saveNewName() {
             const newName = document.getElementById('input-new-name').value.trim();
             if (newName) {
-                const fullEmail = newName.includes('@') ? newName : `${newName}@kkumail.com`;
-                localStorage.setItem('kku_user_email', fullEmail);
-                document.getElementById('user-display-name').innerText = newName.split('@')[0];
-                document.getElementById('dropdown-user-email').innerText = fullEmail;
+                localStorage.setItem('user_name', newName);
+                loadUserProfile();
                 closeChangeNameModal();
             }
         }
 
         function handleLogout() {
-            if (confirm('คุณต้องการออกจากระบบใช่หรือไม่?')) {
-                localStorage.setItem('is_logged_in', 'false');
-                window.location.href = 'login.html';
+            if (confirm('คุณต้องการรีเซ็ตข้อมูลทั้งหมดใช่หรือไม่?')) {
+                localStorage.clear();
+                location.reload();
             }
         }
 
@@ -287,7 +275,7 @@
                 console.warn("Camera access denied or unavailable:", err);
                 placeholder.innerHTML = `
                     <span class="text-3xl">⚠️</span>
-                    <p class="text-xs text-amber-400 px-4 text-center">ไม่พบกล้องหรือยังไม่อนุญาตการเข้าถึงกล้อง สามารถกดปุ่ม "จำลองสแกนโต๊ะสำเร็จ" ด้านล่างเพื่อทดสอบได้</p>
+                    <p class="text-xs text-amber-400 px-4 text-center">ไม่พบกล้องหรือยังไม่อนุญาตการเข้าถึงกล้อง สามารถกดปุ่ม "สแกนโต๊ะสำเร็จ" ด้านล่างเพื่อทดสอบได้</p>
                 `;
             }
         }
@@ -308,9 +296,25 @@
             stopCamera();
             const seat = localStorage.getItem('booking_seat') || 'A-01';
 
+            // อัปเดตสถานะในประวัติการจองเป็น completed
+            updateBookingHistoryStatus(seat, 'completed');
+
             document.getElementById('scanner-view').classList.add('hidden');
             document.getElementById('success-view').classList.remove('hidden');
             document.getElementById('active-table-no').innerText = seat;
+        }
+
+        function updateBookingHistoryStatus(seat, status) {
+            let history = JSON.parse(localStorage.getItem('kku_booking_history')) || [];
+            if (history.length > 0) {
+                // ค้นหารายการล่าสุดของโต๊ะนี้ หรือรายการล่าสุดในระบบ
+                const lastBooking = history.find(h => h.table === seat) || history[0];
+                if (lastBooking) {
+                    lastBooking.status = status;
+                    lastBooking.statusText = status === 'completed' ? 'สำเร็จ' : 'ยกเลิก';
+                    localStorage.setItem('kku_booking_history', JSON.stringify(history));
+                }
+            }
         }
     </script>
 </body>
